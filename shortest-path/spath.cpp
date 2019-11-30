@@ -14,17 +14,42 @@ int cost(int i, int j) {
     {8,4,1,3,2,6},
     {3,7,2,8,6,4}};
 
-    
+    // memoization
+    static int m[rows][cols] = {0};
+    if (m[i][j] != 0) return m[i][j];
 
     // base case
     // returns the value of the cell when the path reaches
     // the last column to the left
     if (j == 0) return weight[i][j];
 
+    int up, left, down, min, smallest;
+    if (i == 0)
+      up = cost(rows-1, j-1);
+    else
+      up = cost(i-1, j-1);
+
+    left = cost(i, j-1);
+
+    if (i == 5)
+      down = cost(0, j-1);
+    else
+      down = cost(i+1, j-1);
+
+    // find smallest between up down and left
+    if (up < left && up < down)
+      smallest = up;
+    if (left < up && left < down)
+      smallest = left;
+    if (down < up && down < left)
+      smallest = down;
+
     // algorithm to find the shortest path starting from the right
     // Every cell will check to its left
+    min = weight[i][j] + smallest;
+    m[i][j] = min;
 
-
+    return min;
 }
 
 int main() {
