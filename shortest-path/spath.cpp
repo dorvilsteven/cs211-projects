@@ -1,6 +1,7 @@
-// Shortest Path (Top Down) - Steven Dorvil
+// Assignment Shortest Path top down - Steven Dorvil
 #include <iostream>
 using namespace std;
+
 const int rows = 5;
 const int cols = 6;
 
@@ -14,6 +15,11 @@ int cost(int i, int j) {
     {5,9,3,9,9,5},
     {8,4,1,3,2,6},
     {3,7,2,8,6,4}};
+
+    // create cost matrix in order to find
+    // minimum cost to get to each cell in
+    // the weight matrix
+    static int cost_matrix[rows][cols] = {0};
 
     // memoization
     static int m[rows][cols] = {0};
@@ -38,19 +44,15 @@ int cost(int i, int j) {
       down = cost(i+1, j-1);
 
     // find smallest between up down and left
-    if (up < left && up < down)
-      smallest = up;
-    if (left < up && left < down)
-      smallest = left;
-    if (down < up && down < left)
-      smallest = down;
+    min = left;
+    if (min > up) min = up;
+    if (min > down) min = down;
 
     // algorithm to find the shortest path starting from the right
     // Every cell will check to its left
-    min = weight[i][j] + smallest;
-    m[i][j] = min;
 
-    return min;
+    m[i][j] = min + weight[i][j];
+    return m[i][j];
 }
 
 int main() {
