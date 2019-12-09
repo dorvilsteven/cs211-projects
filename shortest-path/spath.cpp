@@ -14,12 +14,19 @@ int cost(int i, int j) {
     {6,1,8,2,7,4},
     {5,9,3,9,9,5},
     {8,4,1,3,2,6},
-    {3,7,2,8,6,4}};
+    {3,7,2,1,2,3}};
+
+  // int weight[rows][cols] = {
+  //   {3,4,1,2,8,6},
+  //   {6,1,8,2,7,4},
+  //   {5,9,3,9,9,5},
+  //   {8,4,1,3,2,6},
+  //   {3,7,2,8,6,4}};
 
     // create cost matrix in order to find
     // minimum cost to get to each cell in
     // the weight matrix
-    static int cost_matrix[rows][cols] = {0};
+    static int cost_m[rows][cols] = {0};
 
     // memoization
     static int m[rows][cols] = {0};
@@ -38,7 +45,7 @@ int cost(int i, int j) {
 
     left = cost(i, j-1);
 
-    if (i == 5)
+    if (i == 4)
       down = cost(0, j-1);
     else
       down = cost(i+1, j-1);
